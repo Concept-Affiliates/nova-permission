@@ -85,9 +85,15 @@ class Role extends Resource
      * @param Request $request
      * @return bool
      */
-    public static function availableForNavigation(Request $request)
+    public static function availableForNavigation(NovaRequest $request)
     {
-        return Gate::allows('viewAny', app(PermissionRegistrar::class)->getRoleClass());
+        //return Gate::allows('viewAny', app(PermissionRegistrar::class)->getRoleClass());
+
+		if (auth()->user()->hasRole('Dev Admin')) {
+			return true;
+		} else {
+			return false;
+		}
     }
 
     public static function label()
