@@ -39,7 +39,31 @@ class Role extends Resource
         'name',
     ];
 
-    public static function getModel()
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (auth()->user()->id == 7 || auth()->user()->id == 12) {
+            // Andrea (ID: 7) - hide special roles
+            /*
+            4 = Dev Admin
+            5 = Api Access
+            6 = Affiliate Admin
+            */
+            return $query->whereNotIn('id', [4,5,6]); 
+
+        } else {
+            // return all roles
+            return $query;
+        }        
+    }
+
+	public static function getModel()
     {
         return app(PermissionRegistrar::class)->getRoleClass();
     }
