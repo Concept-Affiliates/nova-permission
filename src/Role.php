@@ -85,7 +85,7 @@ class Role extends Resource
      * @param Request $request
      * @return bool
      */
-    public static function availableForNavigation(NovaRequest $request)
+    public static function availableForNavigation(Request $request)
     {
         //return Gate::allows('viewAny', app(PermissionRegistrar::class)->getRoleClass());
 
